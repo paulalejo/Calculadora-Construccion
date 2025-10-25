@@ -30,7 +30,10 @@ public class MaterialService {
     }
     // Método para calcular el costo total de un material dado su ID y la cantidad
     public double calcularCostoTotal(Long id, double cantidad) {
-        Material material = materialRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Material no encontrado"));
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor a cero:");
+        }
+        Material material = materialRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Material con este numero de id " + id + "no encontrado"));
         return material.calcularCostoTotal(cantidad);
     }
 
